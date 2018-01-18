@@ -76,11 +76,23 @@
           href="https://github.com/vuejs/awesome-vue"
           target="_blank"
         >
-          awesome-vue
+          awesome-vue bwet werf
         </a>
       </li>
     </ul>
+
+    <table>
+        <tr><th>Title</th><th>Desc.</th></tr>
+        <tr v-for="blog in blogs">
+          <td>{{blog.Title}}</td>
+          <td>{{blog.Description}}</td>
+        </tr>
+    </table>
+
   </div>
+
+
+
 </template>
 
 <script>
@@ -88,9 +100,28 @@ export default {
   name: 'HelloWorld',
   data () {
     return {
-      msg: 'Welcome to Your Vue.js App'
+      msg: 'Welcome to Your Vue.js App',
+      blogs:[]
     }
-  }
+  },
+    mounted() {
+      const path = require('path')
+      const dbPath = path.resolve(__dirname, 'data/simple-db.sqlite')
+      var sqlite3 = require('sqlite3').verbose();
+      var db = new sqlite3.Database(dbPath, sqlite3.OPEN_READWRITE);
+
+      this.blogs = [{Title:'Soevsd', Description: 'asdfvsadv'},
+      {Title:'abc', Description: 'asdfvikjmnhbgfvsadv'}];
+      var blogs = [];
+      db.each("select id, title, description from Blog", function(err, row){
+        
+        blogs[row.id] = row;
+      }, function(err, rowCount){
+        cb(null, blogs);
+      });
+
+      console.log(blogs);
+    }
 }
 </script>
 
