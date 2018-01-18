@@ -24,6 +24,7 @@
   },
   "homepage": "https://github.com/dfaruque/ElectronSqliteVue#readme",
   "dependencies": {
-    "electron": "^1.7.10"
+    "electron": "^1.7.10",
+    "vue": "^2.5.13"
   }
 }
